@@ -1,0 +1,28 @@
+diff --color -Naur node_modules/gemini-server/index.js cool_node_modules/gemini-server/index.js
+--- ./node_modules/gemini-server/index.js	1985-10-26 04:15:00.000000000 -0400
++++ ./cool_node_modules/gemini-server/index.js	2021-02-08 16:45:34.562692931 -0500
+@@ -27,7 +27,7 @@
+ 		    rejectUnauthorized: false
+       }, (conn) => {
+         conn.setEncoding('utf8');
+-        conn.on('data', (data) => {
++        conn.on('data', async (data) => {
+           let u = url.parse(data);
+           if(u.protocol !== 'gemini' && u.protocol !== 'gemini:'){
+             //error
+@@ -39,12 +39,12 @@
+           let res = new Response(STATUS._51, "Not Found.");
+           for(let route of this.#stack) {
+             if(route.fast_star || route.regexp != null && route.regexp.exec(u.pathname)){
+-              let handle = function(index){
++              let handle = async function(index){
+                 if(route.handlers.length > index){
+-                  route.handlers[index](req, res, function(){handle(index + 1)})
++                  route.handlers[index].constructor.name === "AsyncFunction" ? (await route.handlers[index](req, res, function(){handle(index + 1)})) : route.handlers[index](req, res, function(){handle(index + 1)})
+                 }
+               }
+-              handle(0);
++              await handle(0);
+               break;
+             }
+           }

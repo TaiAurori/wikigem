@@ -1,0 +1,16 @@
+{
+  "name": "geminiwikipedia",
+  "version": "1.0.0",
+  "description": "Wikipedia Gemini proxy",
+  "main": "main.js",
+  "dependencies": {
+    "gemini-server": "^1.1.0",
+    "wtf_wikipedia": "^8.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TaiAurori#6781",
+  "license": "MIT"
+}
